@@ -1,2 +1,28 @@
-# fwp-joomla-3.8.5
-Joomla french 3.8.5 template
+# Joomla template for Platform.sh
+
+## How to install
+
+1. Clone this repository
+2. Create a new platform.sh project
+
+```
+platform project:create
+```
+
+3. Add specific environment variables
+
+```
+platform variable:set -pyourprojectid -emaster env:ADMIN_LOGIN yourlogin
+platform variable:set -pyourprojectid -emaster env:ADMIN_PASSWORD yourpassword
+```
+
+4. Push to platform.sh
+
+```
+git remote add platform <project id>@git.<project region>.platform.sh:<project id>.git
+git push platform master
+```
+
+5. Backend
+
+You can access your backend at `/administrator` with the credentials that you defined as variables.
