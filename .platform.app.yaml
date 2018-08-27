@@ -44,6 +44,9 @@ mounts:
     '/tmp':
         source: local
         source_path: tmp
+    '/libraries':
+        source: local
+        source_path: libraries
     '/media':
         source: local
         source_path: media
@@ -84,6 +87,7 @@ hooks:
             rsync -a init/cache/ cache/
             rsync -a init/components/ components/
             rsync -a init/tmp/ tmp/
+            rsync -a init/libraries/ libraries/
             rsync -a init/media/ media/
             rsync -a init/modules/ modules/
             rsync -a init/language/ language/
