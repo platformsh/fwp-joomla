@@ -12,7 +12,7 @@ platform project:create
 3. Add specific environment variables
 
 ```
-platform variable:set -pyourprojectid -emaster env:ADMIN_LOGIN yourlogin
+platform variable:set -pyourprojectid -emaster env:ADMIN_EMAIL youremail
 platform variable:set -pyourprojectid -emaster env:ADMIN_PASSWORD yourpassword
 ```
 
