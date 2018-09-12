@@ -1,3 +1,6 @@
-"http://{default}/":
+"https://{default}/":
     type: upstream
     upstream: "joomla:php"
+"http://{default}/":
+    type: redirect
+    to: "https://{default}/"
