@@ -71,9 +71,13 @@ mounts:
     '/administrator/language':
         source: local
         source_path: admin-language
-    '/administrator/manifests':
+    '/administrator/templates':
         source: local
-        source_path: admin-manifests
+        source_path: admin-templates
+    '/templates':
+        source: local
+        source_path: templates
+
 
 hooks:
     deploy: |
@@ -84,6 +88,7 @@ hooks:
             rsync -a init/admin-logs/ administrator/logs/
             rsync -a init/admin-language/ administrator/language/
             rsync -a init/admin-manifests/ administrator/manifests/
+            rsync -a init/admin-templates/ administrator/templates/
             rsync -a init/cache/ cache/
             rsync -a init/components/ components/
             rsync -a init/tmp/ tmp/
@@ -92,6 +97,7 @@ hooks:
             rsync -a init/modules/ modules/
             rsync -a init/language/ language/
             rsync -a init/plugins/ plugins/
+            rsync -a init/templates/ templates/
             mysql -h database.internal -P 3306 -u user main < joomla-init.sql
             mysql -h database.internal -u user -e "INSERT  INTO joo_users (name, username, password, params) VALUES ('Administrator', '${ADMIN_EMAIL}', md5('${ADMIN_PASSWORD}'), ''); INSERT INTO joo_user_usergroup_map (user_id,group_id) VALUES (LAST_INSERT_ID(),'8');" main
             cd && touch administrator/logs/installed.lock
