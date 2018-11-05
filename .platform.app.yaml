@@ -71,6 +71,9 @@ mounts:
     '/administrator/language':
         source: local
         source_path: admin-language
+    '/administrator/manifests':
+        source: local
+        source_path: admin-manifests
     '/administrator/templates':
         source: local
         source_path: admin-templates
