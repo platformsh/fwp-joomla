@@ -74,6 +74,9 @@ mounts:
     '/administrator/manifests':
         source: local
         source_path: admin-manifests
+    '/administrator/modules':
+       source: local
+       source_path: admin-modules
     '/administrator/templates':
         source: local
         source_path: admin-templates
@@ -91,6 +94,7 @@ hooks:
             rsync -a init/admin-logs/ administrator/logs/
             rsync -a init/admin-language/ administrator/language/
             rsync -a init/admin-manifests/ administrator/manifests/
+            rsync -a init/admin-modules/ administrator/modules/
             rsync -a init/admin-templates/ administrator/templates/
             rsync -a init/cache/ cache/
             rsync -a init/components/ components/
