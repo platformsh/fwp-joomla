@@ -59,6 +59,9 @@ mounts:
     '/plugins':
         source: local
         source_path: plugins
+    '/images':
+        source: local
+        source_path: images
     '/administrator/logs':
         source: local
         source_path: admin-logs
@@ -104,6 +107,7 @@ hooks:
             rsync -a init/modules/ modules/
             rsync -a init/language/ language/
             rsync -a init/plugins/ plugins/
+            rsync -a init/images/ images/
             rsync -a init/templates/ templates/
             mysql -h database.internal -P 3306 -u user main < joomla-init.sql
             mysql -h database.internal -u user -e "INSERT  INTO joo_users (name, username, password, params) VALUES ('Administrator', '${ADMIN_EMAIL}', md5('${ADMIN_PASSWORD}'), ''); INSERT INTO joo_user_usergroup_map (user_id,group_id) VALUES (LAST_INSERT_ID(),'8');" main
