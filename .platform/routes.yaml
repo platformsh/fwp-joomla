@@ -1,9 +1,9 @@
-"https://{default}/":
+"https://{all}/":
     type: upstream
     upstream: "joomla:php"
-"http://{default}/":
+"http://{all}/":
     type: redirect
-    to: "https://{default}/"
-"https://www.{default}/":
+    to: "https://{all}/"
+"https://www.{all}/":
    type: redirect
-   to: "https://{default}/"
+   to: "https://{all}/"
