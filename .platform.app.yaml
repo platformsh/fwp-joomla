@@ -30,11 +30,19 @@ web:
             root: "administrator"
             passthru: "/administrator/index.php"
 
+        "/config_platform":
+           root: "config_platform"
+           scripts: false
+           allow: false
+
 # The size of the persistent disk of the application (in MB).
 disk: 2048
 
 # The mounts that will be performed when the package is deployed.
 mounts:
+    '/config_platform':
+        source: local
+        source_path: config_platform
     '/cache':
         source: local
         source_path: cache
