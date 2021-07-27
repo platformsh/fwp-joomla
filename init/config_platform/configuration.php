@@ -70,10 +70,6 @@ class JConfig {
 		// This is where we get the relationships of our application dynamically
     		//from Platform.sh
 		$relationships = json_decode(base64_decode($_ENV['PLATFORM_RELATIONSHIPS']), TRUE);
-		if($_ENV['CMS_EDITOR']){
-			$editor = json_decode(base64_decode($_ENV['CMS_EDITOR']), TRUE);
-			$this->editor = $editor;
-		}
 		// We are using the first relationship called "database" found in your
 		// relationships. Note that you can call this relationship as you wish
 		// in you .platform.app.yaml file, but 'database' is a good name.

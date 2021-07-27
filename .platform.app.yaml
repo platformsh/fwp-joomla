@@ -5,7 +5,7 @@
 name: joomla
 
 # The type of the application to build.
-type: php:7.1
+type: php:7.3
 
 build:
     flavor: composer
@@ -99,7 +99,8 @@ mounts:
 hooks:
     deploy: |
         set -e
-        if test ! -f administrator/logs/installed.lock ; then
+        TOUPDATE=$(sed '2,$d' version.txt)
+        if [ ! -f administrator/logs/installed.lock ]; then
             rsync -a init/admin-cache/ administrator/cache/
             rsync -a init/admin-components/ administrator/components/
             rsync -a init/admin-logs/ administrator/logs/
@@ -120,5 +121,27 @@ hooks:
             rsync -a init/templates/ templates/
             mysql -h database.internal -P 3306 -u user main < joomla-init.sql
             mysql -h database.internal -u user -e "INSERT  INTO joo_users (name, username, password, params) VALUES ('Administrator', '${ADMIN_EMAIL}', md5('${ADMIN_PASSWORD}'), ''); INSERT INTO joo_user_usergroup_map (user_id,group_id) VALUES (LAST_INSERT_ID(),'8');" main
-            cd && touch administrator/logs/installed.lock
+            cd && touch administrator/logs/installed.lock; echo "${TOUPDATE}" > administrator/logs/version.lock
+        elif [ -f administrator/logs/version.lock ]; then
+            PROD=$(sed '2,$d' administrator/logs/version.lock)
+            if [ ${TOUPDATE} != ${PROD} ]; then
+                rsync -a init/admin-cache/ administrator/cache/
+                rsync -a init/admin-components/ administrator/components/
+                rsync -a init/admin-logs/ administrator/logs/
+                rsync -a init/admin-language/ administrator/language/
+                rsync -a init/admin-manifests/ administrator/manifests/
+                rsync -a init/admin-modules/ administrator/modules/
+                rsync -a init/admin-templates/ administrator/templates/
+                rsync -a init/cache/ cache/
+                rsync -a init/components/ components/
+                rsync -a init/tmp/ tmp/
+                rsync -a init/libraries/ libraries/
+                rsync -a init/media/ media/
+                rsync -a init/modules/ modules/
+                rsync -a init/language/ language/
+                rsync -a init/plugins/ plugins/
+                rsync -a init/images/ images/
+                rsync -a init/templates/ templates/
+                cd && touch administrator/logs/updated-${TOUPDATE}.lock; echo "${TOUPDATE}" > administrator/logs/version.lock
+            fi
         fi
