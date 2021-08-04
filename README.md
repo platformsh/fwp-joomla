@@ -12,8 +12,8 @@ platform project:create
 3. Add specific environment variables
 
 ```
-platform variable:set -pyourprojectid -emaster env:ADMIN_EMAIL youremail
-platform variable:set -pyourprojectid -emaster env:ADMIN_PASSWORD yourpassword
+platform variable:create -y -p <project> -e master --level environment --name env:ADMIN_EMAIL --value your@email.com
+platform variable:create -y -p <project> -e master --sensitive true --level environment --name env:ADMIN_PASSWORD --value yourpassword
 ```
 
 4. Push to platform.sh
